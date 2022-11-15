@@ -1,0 +1,51 @@
+* {
+    font-size: 1rem;
+    font-family: Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    scroll-behavior: smooth;
+    
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  .animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+  
+  .fadeInUp {
+    animation-name: fadeInUp;
+  }
+
+  app-products {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+  }

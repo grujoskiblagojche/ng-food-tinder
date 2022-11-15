@@ -1,0 +1,180 @@
+<style>
+  .products {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 48px 0;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .products::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 360px;
+    margin: 12px;
+    padding: 24px;
+    border-radius: 16px;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.24);
+    box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.24);
+  }
+
+  .product__container {
+    position: relative;
+  }
+
+  .product__vote_count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: #1976d2;
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    z-index: 3;
+  }
+
+  .product__vote_count small {
+    font-size: 0.85rem;
+    font-weight: 400;
+  }
+
+  .product__img {
+    position: relative;
+    width: 320px;
+  }
+
+  .product__content {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .product__content figcaption {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+    margin-bottom: 12px;
+  }
+
+  .product__content p {
+    width: 100%;
+    margin-bottom: 16px;
+    text-overflow: ellipsis;
+  }
+
+  .product__vote {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .vote__btn {
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    margin: 12px;
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 0.3s ease;
+    transform-origin: center center;
+  }
+
+  .vote__btn:disabled {
+    opacity: 0.5;
+    transform: scale(1) !important;
+    cursor: not-allowed !important;
+  }
+
+  .vote__btn:hover {
+    transform: scale(1.15);
+  }
+
+  .vote__btn.up {
+    background-color: forestgreen;
+  }
+
+  .vote__btn.down {
+    background-color: crimson;
+  }
+
+  .vote__btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .products {
+      flex-wrap: nowrap;
+      scroll-snap-type: x mandatory;
+      overflow-x: scroll;
+      justify-content: flex-start;
+    }
+    .product {
+      margin: 4px;
+      scroll-snap-align: center;
+    }
+    .product:first-child {
+      margin-left: 24px;
+    }
+  }
+</style>
+
+<section class="products animated fadeInUp">
+  <figure *ngFor="let product of products; let i = index" class="product">
+    <div class="product__container">
+      <span class="product__vote_count"
+        >{{ checkVote(product.id) ? 1 : 0 }}
+        <small>votes</small>
+      </span>
+      <img
+        [src]="product.imageSet[0].url"
+        [alt]="product.name"
+        class="product__img"
+      />
+      <div class="product__content">
+        <figcaption>{{ product.name }}</figcaption>
+        <p>{{ product.shortDescription }}</p>
+      </div>
+    </div>
+    <div class="product__vote">
+      <button (click)="vote(false, i)" class="vote__btn down">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 320 512"
+          fill="#fff"
+        >
+          <path
+            d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"
+          />
+        </svg>
+      </button>
+      <button
+        (click)="vote(true, i)"
+        class="vote__btn up"
+        [disabled]="product.vote"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          fill="#fff"
+        >
+          <path
+            d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+          />
+        </svg>
+      </button>
+    </div>
+  </figure>
+</section>
